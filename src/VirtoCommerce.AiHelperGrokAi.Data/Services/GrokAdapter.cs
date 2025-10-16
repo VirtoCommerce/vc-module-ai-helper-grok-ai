@@ -41,7 +41,7 @@ public class GrokAdapter : IGrokAdapter
                     {
                         new { role = "user", content = prompt }
                     },
-                    max_tokens = 1000
+                    max_tokens = 100000
                 };
 
                 var json = System.Text.Json.JsonSerializer.Serialize(requestBody);

@@ -49,7 +49,7 @@ public class Module : IModule, IHasConfiguration
         serviceCollection.AddTransient<IGrokAdapter, GrokAdapter>();
 
         serviceCollection.AddSingleton<GrokAiProvider>();
-        serviceCollection.AddSingleton<GrokAiTranslationService>();
+        serviceCollection.AddSingleton<GrokAiTextGenerationService>();
     }
 
     public void PostInitialize(IApplicationBuilder appBuilder)
@@ -60,13 +60,15 @@ public class Module : IModule, IHasConfiguration
         var settingsRegistrar = serviceProvider.GetRequiredService<ISettingsRegistrar>();
         settingsRegistrar.RegisterSettings(ModuleConstants.Settings.AllSettings, ModuleInfo.Id);
 
-        var grokAiTranslationService = serviceProvider.GetRequiredService<GrokAiTranslationService>();
-        var importerRegistrar = appBuilder.ApplicationServices.GetService<IAiProviderRegistrar>();
-        importerRegistrar.Register<GrokAiProvider>(() => appBuilder.ApplicationServices.GetService<GrokAiProvider>())
+        var grokAiTranslationService = serviceProvider.GetRequiredService<GrokAiTextGenerationService>();
+        var aiProviderRegistrar = appBuilder.ApplicationServices.GetService<IAiProviderRegistrar>();
+        aiProviderRegistrar.Register<GrokAiProvider>(() => appBuilder.ApplicationServices.GetService<GrokAiProvider>())
             .WithService(grokAiTranslationService);
 
         var settingsManager = appBuilder.ApplicationServices.GetRequiredService<ISettingsManager>();
-        CoreModuleConstants.Settings.General.AiHelperTranslationProvider.AllowedValues = CoreModuleConstants.Settings.General.AiHelperTranslationProvider.AllowedValues.Concat(importerRegistrar.GetAiProvidersByService<IAiTranslationService>().Select(x => x.ProviderType).ToArray()).Distinct().ToArray();
+        CoreModuleConstants.Settings.General.AiHelperTextGenerationProvider.AllowedValues =
+            CoreModuleConstants.Settings.General.AiHelperTextGenerationProvider.AllowedValues
+            .Concat(aiProviderRegistrar.GetAiProvidersByService<IAiTextGenerationService>().Select(x => x.ProviderType).ToArray()).Distinct().ToArray();
 
         // Apply migrations
         using var serviceScope = serviceProvider.CreateScope();
