@@ -41,4 +41,8 @@ public class GrokAiTextGenerationService : IAiTextGenerationService
         return _settingsManager.GetValueAsync<string>(Settings.General.AiHelperGrokAiPromptTranslate);
     }
 
+    public virtual Task<string> GetProductDescriptionGenerationPrompt()
+    {
+        return _settingsManager.GetValueAsync<string>(Settings.General.AiHelperGrokAiPromptDescriptionGenerate);
+    }
 }

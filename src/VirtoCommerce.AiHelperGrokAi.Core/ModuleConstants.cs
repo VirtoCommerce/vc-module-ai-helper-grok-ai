@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using VirtoCommerce.Platform.Core.Settings;
+using static VirtoCommerce.AiHelper.Core.ModuleConstants;
 
 namespace VirtoCommerce.AiHelperGrokAi.Core;
 
@@ -43,9 +44,16 @@ public static class ModuleConstants
                 Name = "AiHelperGrokAi.PromptTranslate",
                 GroupName = "AiHelper|Prompts",
                 ValueType = SettingValueType.LongText,
-                DefaultValue = "Translate to {locale} the text, preserve HTML or Markdown markups: {text}",
+                DefaultValue = DefaultPrompts.Translation,
             };
 
+            public static SettingDescriptor AiHelperGrokAiPromptDescriptionGenerate { get; } = new()
+            {
+                Name = "AiHelperGrokAi.PromptDescriptionGenerate",
+                GroupName = "AiHelper|Prompts",
+                ValueType = SettingValueType.LongText,
+                DefaultValue = DefaultPrompts.ProductDescriptionGeneration,
+            };
 
             public static IEnumerable<SettingDescriptor> AllGeneralSettings
             {
@@ -55,6 +63,7 @@ public static class ModuleConstants
                     yield return AiHelperGrokAiModel;
                     yield return AiHelperGrokAiKey;
                     yield return AiHelperGrokAiPromptTranslate;
+                    yield return AiHelperGrokAiPromptDescriptionGenerate;
                 }
             }
         }
