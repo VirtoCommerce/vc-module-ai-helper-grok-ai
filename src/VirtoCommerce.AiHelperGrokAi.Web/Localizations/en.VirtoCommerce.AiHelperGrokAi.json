@@ -32,7 +32,7 @@
         "description": "Use \"{locale}\" and \"{text}\" as parameter for locale name and text to translate"
       },
       "PromptDescriptionGenerate": {
-        "title": "GrokAI product description generte prompt",
+        "title": "GrokAI product description generate prompt",
         "description": "Use \"{locale}\" and \"{product}\" as parameter for locale name and product to generate"
       }
     }
