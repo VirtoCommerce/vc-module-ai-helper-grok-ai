@@ -42,7 +42,7 @@ public static class ModuleConstants
             public static SettingDescriptor AiHelperGrokAiPromptTranslate { get; } = new()
             {
                 Name = "AiHelperGrokAi.PromptTranslate",
-                GroupName = "AiHelper|Prompts",
+                GroupName = "AiHelper|Prompts - GrokAI",
                 ValueType = SettingValueType.LongText,
                 DefaultValue = DefaultPrompts.Translation,
             };
@@ -50,7 +50,7 @@ public static class ModuleConstants
             public static SettingDescriptor AiHelperGrokAiPromptDescriptionGenerate { get; } = new()
             {
                 Name = "AiHelperGrokAi.PromptDescriptionGenerate",
-                GroupName = "AiHelper|Prompts",
+                GroupName = "AiHelper|Prompts - GrokAI",
                 ValueType = SettingValueType.LongText,
                 DefaultValue = DefaultPrompts.ProductDescriptionGeneration,
             };
